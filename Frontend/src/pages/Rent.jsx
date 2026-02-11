@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import R_Hero from "../components/Rent/R_Hero";
 import R_Info from "../components/Rent/R_Info";
@@ -8,12 +10,13 @@ import R_Form from "../components/Rent/R_Form";
 import Footer from "../components/Footer";
 
 const Rent = () => {
+   const navigate = useNavigate();
   const handleLoginClick = () => {
     console.log("Login clicked");
   };
 
   const handleRegisterClick = () => {
-    console.log("Register clicked");
+    navigate("/registration");
   };
   return (
     <>

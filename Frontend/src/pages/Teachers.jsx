@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import T_Hero from "../components/Teachers/T_Hero";
 import Footer from "../components/Footer";
@@ -7,13 +9,13 @@ import T_Teachers from "../components/Teachers/T_Teachers";
 import T_Contact from "../components/Teachers/T_Contact";
 
 function Teachers() {
-    // Példa az eseménykezelőkre (ha van regisztráció vagy bejelentkezési logika)
+    const navigate = useNavigate();
     const handleLoginClick = () => {
         console.log("Login clicked");
     };
 
     const handleRegisterClick = () => {
-        console.log("Register clicked");
+        navigate("/registration");
     };
 
     return (

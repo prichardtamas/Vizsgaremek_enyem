@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import H_Hero from "../components/Home/H_Hero";
 import H_About from "../components/Home/H_About";
@@ -7,16 +9,14 @@ import H_Contact from "../components/Home/H_Contact";
 import Footer from "../components/Footer";
 
 function Home() {
+    const navigate = useNavigate();
+
     const handleLoginClick = () => {
-        alert(
-            "A bejelentkezési oldal jelenleg fejlesztés alatt áll. Kérjük, próbáld újra később, vagy használd a kapcsolati űrlapot!"
-        );
+        alert("Még nem jó")
     };
 
     const handleRegisterClick = () => {
-        alert(
-            "A regisztrációs oldal jelenleg fejlesztés alatt áll. Kérjük, próbáld újra később, vagy használd a kapcsolati űrlapot!"
-        );
+        navigate("/registration");
     };
 
     const handleHeroRegisterClick = () => {

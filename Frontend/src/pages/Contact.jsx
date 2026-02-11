@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Con_Hero from "../components/Contact/Con_Hero";
@@ -8,13 +10,13 @@ import Con_GYIK from "../components/Contact/Con_GYIK";
 
 
 const Contact = () => {
-  // Függvények definiálása
+  const navigate = useNavigate();
   const handleLoginClick = () => {
     alert("Bejelentkezési oldal hamarosan elérhető!");
   };
 
   const handleRegisterClick = () => {
-    alert("Regisztrációs oldal hamarosan elérhető!");
+    navigate("/registration");
   };
 
   return (
