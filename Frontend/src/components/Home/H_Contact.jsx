@@ -93,19 +93,6 @@ function Contact({ onSubmit }) {
                                         referrerPolicy="no-referrer-when-downgrade"
                                         title="Harmónia Zeneiskola helyszíne - 1061 Budapest, Jókai tér 1"
                                     />
-                                    <div className="map-overlay">
-                                        <div className="map-info">
-                                            <h4>
-                                                <i className="fas fa-map-marker-alt"></i> Helyszínünk
-                                            </h4>
-                                            <p>
-                                                <strong>1061 Budapest, Jókai tér 1.</strong>
-                                            </p>
-                                            <p className="map-note">
-                                                <i className="fas fa-info-circle"></i> Kattints a térképre részletes utasításokért!
-                                            </p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 

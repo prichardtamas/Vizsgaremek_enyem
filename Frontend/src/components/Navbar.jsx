@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import logo from "../img/logo.png";
 
 function Navbar({ onLogin, onRegister }) {
-    // Görgetés funkció
     const handleScrollToTop = () => {
         window.scrollTo({
             top: 0,

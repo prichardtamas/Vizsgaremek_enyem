@@ -1364,47 +1364,6 @@ footer::before {
     height: 500px;
 }
 
-.map-overlay-custom {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    max-width: 350px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.map-overlay-content h4 {
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-    color: var(--dark-text);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.map-overlay-content h4 i {
-    color: var(--accent-turquoise);
-}
-
-.map-overlay-content p {
-    margin-bottom: 0.5rem;
-    color: var(--light-text);
-}
-
-.map-overlay-content .small {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-.map-overlay-content .btn-sm {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
-}
-
 /* FAQ Section */
 .faq-section {
     background-color: white;
@@ -1858,48 +1817,6 @@ footer::before {
 .map-embed {
     position: relative;
     height: 450px;
-}
-
-.map-overlay {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    max-width: 320px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.map-overlay h4 {
-    font-size: 1.2rem;
-    margin-bottom: 0.75rem;
-    color: var(--dark-text);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.map-overlay h4 i {
-    color: var(--accent-turquoise);
-}
-
-.map-overlay p {
-    margin-bottom: 0.5rem;
-    color: var(--light-text);
-    font-size: 0.95rem;
-}
-
-.map-note {
-    font-size: 0.85rem;
-    color: var(--accent-turquoise) !important;
-    font-weight: 500;
-    margin-top: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 /* Contact Section (Főoldal) */
@@ -2688,7 +2605,6 @@ textarea.form-control {
     
     .contact-form-container,
     .contact-card-body,
-    .map-overlay-custom,
     .contact-form-box,
     .info-box,
     .form-container {
@@ -2744,14 +2660,6 @@ textarea.form-control {
     .map-container-large,
     .map-embed {
         height: 350px;
-    }
-    
-    .map-overlay,
-    .map-overlay-custom {
-        max-width: 280px;
-        padding: 15px;
-        bottom: 20px;
-        left: 20px;
     }
     
     .stat-number {
@@ -2845,14 +2753,6 @@ textarea.form-control {
     .no-results-box,
     .no-results-message {
         padding: 2rem 1.5rem;
-    }
-    
-    .map-overlay-custom {
-        position: relative;
-        top: 0;
-        left: 0;
-        max-width: 100%;
-        margin-top: 20px;
     }
     
     .map-container-large {
@@ -3107,7 +3007,6 @@ textarea.form-control {
     .social-icons,
     .copyright,
     .btn,
-    .map-overlay-custom,
     .cta-box,
     .hero-buttons,
     .teacher-filters,
@@ -3115,7 +3014,6 @@ textarea.form-control {
     .how-to-choose,
     #contact,
     footer,
-    .btn,
     .floating-offer,
     .hero-stats,
     .filters-container,
@@ -3167,82 +3065,6 @@ textarea.form-control {
     }
 }
 
-/* Hozzáadandó CSS a meglévő CSS fájlhoz */
-
-.map-overlay-custom {
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 1.25rem !important;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  z-index: 1000;
-}
-
-.map-overlay-content h4 {
-  font-size: 1.1rem !important;
-  margin-bottom: 0.5rem !important;
-  color: var(--dark-text);
-  display: flex;
-  align-items: center;
-}
-
-.map-overlay-content p {
-  margin-bottom: 0.25rem !important;
-  color: var(--light-text);
-  font-size: 0.9rem;
-}
-
-.map-overlay-content .small {
-  font-size: 0.8rem !important;
-}
-
-/* Gombok reszponzív stílusa */
-.map-overlay-content .btn-sm {
-  padding: 0.35rem 0.75rem !important;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  min-width: fit-content;
-}
-
-/* Mobil nézet */
-@media (max-width: 768px) {
-  .map-overlay-custom {
-    max-width: 280px !important;
-    padding: 1rem !important;
-    left: 15px !important;
-    bottom: 15px !important;
-  }
-  
-  .map-overlay-content h4 {
-    font-size: 1rem !important;
-  }
-  
-  .map-overlay-content p {
-    font-size: 0.85rem !important;
-  }
-  
-  .map-overlay-content .small {
-    font-size: 0.75rem !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .map-overlay-custom {
-    max-width: 240px !important;
-    padding: 0.75rem !important;
-  }
-  
-  .map-overlay-content .d-flex {
-    flex-direction: column !important;
-  }
-  
-  .map-overlay-content .btn-sm {
-    width: 100%;
-    margin-bottom: 0.25rem;
-  }
-}
-
 /* =============================================== */
 /* REGISZTRÁCIÓS OLDAL - VISSZA GOMBBAL EGYVONALBAN */
 /* =============================================== */
@@ -3276,14 +3098,24 @@ textarea.form-control {
     font-size: 0.9rem;
 }
 
-/* Register Wrapper - NINCS felső padding, flex-start igazítás */
+.back-btn:hover {
+    background: linear-gradient(135deg, var(--accent-turquoise), #1ac5b8);
+    color: white;
+    border-color: var(--accent-turquoise);
+}
+
+.back-btn:hover i {
+    color: white;
+}
+
+/* Register Wrapper */
 .register-wrapper {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Változás: center helyett flex-start */
+    justify-content: flex-start;
     align-items: center;
-    padding: 20px 15px 20px; /* Felső padding megegyezik a back-btn top értékével */
+    padding: 10px 15px 10px;
     background: linear-gradient(135deg, var(--secondary-light) 0%, white 100%);
     position: relative;
     overflow: hidden;
@@ -3311,7 +3143,7 @@ textarea.form-control {
     border-radius: 50%;
 }
 
-/* Register Card - Fentről kezdődik, a back-btn magasságánál */
+/* Register Card */
 .register-card {
     background: white;
     border-radius: 20px;
@@ -3323,7 +3155,7 @@ textarea.form-control {
     z-index: 10;
     border: 1px solid rgba(29, 211, 198, 0.1);
     animation: fadeInUp 0.6s ease-out;
-    margin-top: 0; /* Nincs extra margó */
+    margin-top: 0;
 }
 
 /* Logo */
@@ -3332,20 +3164,21 @@ textarea.form-control {
     margin-bottom: 10px;
 }
 
-.logo-circle {
-    width: 55px;
-    height: 55px;
-    background: linear-gradient(135deg, var(--accent-turquoise), #1ac5b8);
+/* Regisztrációs oldal logó - ÚJ */
+.register-logo-img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: white;
     box-shadow: 0 8px 18px rgba(29, 211, 198, 0.25);
     border: 2px solid white;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.register-logo-img:hover {
+    transform: scale(1.05);
 }
 
 /* Register Header */
@@ -3610,6 +3443,10 @@ textarea.form-control {
     font-size: 0.8rem;
 }
 
+.terms-checkbox a:hover {
+    text-decoration: underline;
+}
+
 /* Register Button */
 .register-btn {
     display: flex;
@@ -3695,10 +3532,9 @@ textarea.form-control {
 }
 
 /* =============================================== */
-/* RESZPONZÍV BEÁLLÍTÁSOK - EGYVONALBAN A GOMBBAL */
+/* RESZPONZÍV BEÁLLÍTÁSOK - REGISZTRÁCIÓ */
 /* =============================================== */
 
-/* 1366x768 és hasonló méretek */
 @media (max-height: 800px) {
     .back-to-home {
         top: 15px;
@@ -3706,7 +3542,7 @@ textarea.form-control {
     }
     
     .register-wrapper {
-        padding: 15px 15px 15px; /* Felső padding csökkentve */
+        padding: 15px 15px 15px;
     }
     
     .register-card {
@@ -3714,10 +3550,9 @@ textarea.form-control {
         max-width: 460px;
     }
     
-    .logo-circle {
+    .register-logo-img {
         width: 50px;
         height: 50px;
-        font-size: 1.6rem;
     }
     
     .register-header {
@@ -3761,7 +3596,6 @@ textarea.form-control {
     }
 }
 
-/* Táblagép nézet */
 @media (max-width: 768px) {
     .back-to-home {
         top: 12px;
@@ -3782,6 +3616,11 @@ textarea.form-control {
         max-width: 440px;
     }
     
+    .register-logo-img {
+        width: 55px;
+        height: 55px;
+    }
+    
     .register-header h1 {
         font-size: 1.7rem;
     }
@@ -3791,7 +3630,6 @@ textarea.form-control {
     }
 }
 
-/* Mobil nézet */
 @media (max-width: 576px) {
     .back-to-home {
         top: 10px;
@@ -3818,10 +3656,9 @@ textarea.form-control {
         padding: 18px 18px;
     }
     
-    .logo-circle {
-        width: 45px;
-        height: 45px;
-        font-size: 1.5rem;
+    .register-logo-img {
+        width: 50px;
+        height: 50px;
     }
     
     .register-header h1 {
@@ -3865,7 +3702,6 @@ textarea.form-control {
     }
 }
 
-/* Nagyon kis magasság */
 @media (max-height: 700px) {
     .back-to-home {
         top: 10px;
@@ -3880,10 +3716,9 @@ textarea.form-control {
         padding: 15px 20px;
     }
     
-    .logo-circle {
-        width: 40px;
-        height: 40px;
-        font-size: 1.4rem;
+    .register-logo-img {
+        width: 45px;
+        height: 45px;
     }
     
     .logo-wrapper {
@@ -3924,7 +3759,7 @@ textarea.form-control {
     }
     
     .terms-group {
-        padding: 10px 12px;
+        padding: 8px 12px;
         margin: 3px 0 0;
     }
     
@@ -3951,16 +3786,14 @@ textarea.form-control {
     }
 }
 
-/* Extra small méretek */
 @media (max-width: 400px) and (max-height: 700px) {
     .register-card {
         padding: 15px;
     }
     
-    .logo-circle {
-        width: 38px;
-        height: 38px;
-        font-size: 1.3rem;
+    .register-logo-img {
+        width: 40px;
+        height: 40px;
     }
     
     .register-header h1 {
@@ -3989,7 +3822,7 @@ textarea.form-control {
     }
     
     .terms-group {
-        padding: 8px 10px;
+        padding: 6px 10px;
     }
     
     .terms-checkbox label {

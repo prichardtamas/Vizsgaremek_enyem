@@ -19,7 +19,7 @@ const teachersData = [
         skills: ["Kezdő", "Haladó", "Zeneelmélet"],
         education: "Liszt Ferenc Zeneművészeti Egyetem",
         instruments: "Zongora, Zeneelmélet, Szolfézs",
-        schedule: "Hétfő-Csütörtök 14:00-19:00",
+        schedule: "Hétfő-Csütörtök 14:00-20:00",
         image: kovacsAnnaImage,
         contactTime: "Jelentkezés",
         imagePosition: "25%"
@@ -45,7 +45,7 @@ const teachersData = [
         skills: ["Kezdő", "Haladó", "Versenykészítés"],
         education: "Szegedi Tudományegyetem",
         instruments: "Hegedű, Vonós alapok",
-        schedule: "Hétfő, Szerda 13:00-18:00",
+        schedule: "Hétfő, Szerda 14:00-18:00",
         image: tothEmeseImage,
         contactTime: "Jelentkezés",
         imagePosition: "3%"
@@ -58,7 +58,7 @@ const teachersData = [
         skills: ["Kezdő", "Haladó", "Profi"],
         education: "Kőbányai Zenei Stúdió",
         instruments: "Elektromos gitár, Effekt technika",
-        schedule: "Hétfő-Csütörtök 17:00-21:00",
+        schedule: "Hétfő-Csütörtök 17:00-20:00",
         image: nemethGaborImage,
         contactTime: "Jelentkezés",
         imagePosition: "30%"
@@ -71,7 +71,7 @@ const teachersData = [
         skills: ["Kezdő", "Haladó", "Zenekari"],
         education: "Kőbányai Zenei Stúdió",
         instruments: "Dob, Ütőhangszerek",
-        schedule: "Hétfő, Péntek 17:00-21:00",
+        schedule: "Hétfő, Péntek 16:00-19:00",
         image: kissRekaImage,
         contactTime: "Jelentkezés",
         imagePosition: "20%"

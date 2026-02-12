@@ -1,4 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import yamahaC40 from '../../img/yamahaC40.jpg';
+import stentroHegedu from '../../img/stentorHegedu.jpg';
+import bossKatanaErosito from '../../img/bossKatanaErosito.jpg'
+import fenderS from '../../img/fenderS.jpg'
+import fenderJazzBass from '../../img/fenderJazzBass.jpg'
+import marshallErosito from '../../img/marshallErosito.jpg'
+import yamahaYas from '../../img/yamahaYas280.jpg'
+import yamahaP125 from '../../img/yamahaP125.jpg'
+import gibsonLee from '../../img/gibsonLee.jpg'
 
 const R_Instruments = () => {
   const [instruments, setInstruments] = useState([]);
@@ -19,7 +28,7 @@ const R_Instruments = () => {
       price: 5990,
       availability: "in-stock",
       description: "Amerikai gyártmányú elektromos gitár, ikonikus hangzással.",
-      image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      image: fenderS,
       badge: "Legnépszerűbb",
       minRental: "Min. 1 hónap"
     },
@@ -30,7 +39,7 @@ const R_Instruments = () => {
       price: 8490,
       availability: "in-stock",
       description: "88 súlyozott billentyű, kiváló zongorahang, könnyű szállíthatóság.",
-      image: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      image: yamahaP125,
       badge: "Újonnan érkezett",
       minRental: "Min. 1 hónap"
     },
@@ -52,7 +61,7 @@ const R_Instruments = () => {
       price: 3990,
       availability: "in-stock",
       description: "4/4-es méret, teljes készlet vonóval, táskával és kolophonnial.",
-      image: "https://images.unsplash.com/photo-1571974599782-87624638275f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
+      image: stentroHegedu,
       badge: "Kezdőknek",
       minRental: "Min. 1 hónap"
     },
@@ -63,7 +72,7 @@ const R_Instruments = () => {
       price: 7490,
       availability: "in-stock",
       description: "Kiváló minőségű kezdő szaxofon komplett készlettel.",
-      image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb1c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+      image: yamahaYas,
       minRental: "Min. 2 hónap"
     },
     {
@@ -73,7 +82,7 @@ const R_Instruments = () => {
       price: 6990,
       availability: "in-stock",
       description: "40W tube erősítő, ikonikus Marshall hangzással.",
-      image: "https://images.unsplash.com/photo-1567539769475-eae74e7a09d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+      image: marshallErosito,
       minRental: "Min. 1 hónap"
     },
     {
@@ -83,7 +92,7 @@ const R_Instruments = () => {
       price: 8990,
       availability: "in-stock",
       description: "Klasszikus elektromos gitár, meleg, teljes hangzással.",
-      image: "https://images.unsplash.com/photo-1550985616-10810253b84d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: gibsonLee,
       minRental: "Min. 1 hónap"
     },
     {
@@ -113,7 +122,7 @@ const R_Instruments = () => {
       price: 6490,
       availability: "in-stock",
       description: "4 húros basszusgitár, funk és jazz stílusokhoz ideális.",
-      image: "https://images.unsplash.com/photo-1525207770211-0fb428242f6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: fenderJazzBass,
       minRental: "Min. 1 hónap"
     },
     {
@@ -123,7 +132,7 @@ const R_Instruments = () => {
       price: 2990,
       availability: "in-stock",
       description: "Nilon húros klasszikus gitár, kezdők számára ideális.",
-      image: "https://images.unsplash.com/photo-1605020420620-20c943cc4669?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: yamahaC40,
       badge: "Kezdőknek",
       minRental: "Min. 1 hónap"
     },
@@ -145,7 +154,7 @@ const R_Instruments = () => {
       price: 4490,
       availability: "in-stock",
       description: "50W modeling erősítő, számos beépített effektussal.",
-      image: "https://images.unsplash.com/photo-1583864698660-ef5c13a5e6b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: bossKatanaErosito,
       minRental: "Min. 1 hónap"
     },
     {

@@ -268,11 +268,13 @@ const Registration = () => {
       {/* Regisztrációs űrlap konténer */}
       <div className="register-wrapper">
         <div className="register-card">
-          {/* Logo */}
+          {/* Logo - CSERÉLVE: HZ helyett saját logó */}
           <div className="logo-wrapper">
-            <div className="logo-circle">
-              HZ
-            </div>
+            <img 
+              src={logo} 
+              alt="Harmónia Zeneiskola logó" 
+              className="register-logo-img"
+            />
           </div>
           
           {/* Fejléc */}

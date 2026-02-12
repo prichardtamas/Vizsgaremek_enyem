@@ -39,43 +39,7 @@ function ContactMap() {
             title="Harmónia Zeneiskola helyszíne - 1061 Budapest, Jókai tér 1"
           ></iframe>
 
-          {/* Módosított map overlay - jobb alsó sarokba helyezve */}
-          <div className="map-overlay-custom position-absolute" style={{
-            bottom: "20px",
-            left: "20px",
-            right: "auto",
-            top: "auto",
-            maxWidth: "320px",
-            zIndex: 1000
-          }}>
-            <div className="map-overlay-content">
-              <h4 className="mb-2">
-                <i className="fas fa-map-marker-alt me-2"></i> Itt találsz minket
-              </h4>
-              <p className="mb-1">
-                <strong>1061 Budapest, Jókai tér 1.</strong>
-              </p>
-              <p className="small text-muted mb-3">A Deák téri metrócsomóponttól 3 perc sétára</p>
-              
-              {/* Gombok egymás alatt mobil nézetben */}
-              <div className="d-flex flex-column flex-sm-row gap-2">
-                <button
-                  className="btn btn-sm btn-outline-primary flex-fill"
-                  onClick={handleDirections}
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  <i className="fas fa-directions me-1"></i> Útvonaltervezés
-                </button>
-                <button
-                  className="btn btn-sm btn-outline-primary flex-fill"
-                  onClick={handleParkingInfo}
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  <i className="fas fa-car me-1"></i> Parkolás
-                </button>
-              </div>
-            </div>
-          </div>
+          {/* Összes overlay eltávolítva */}
         </div>
       </div>
     </section>
