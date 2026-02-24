@@ -1,5 +1,5 @@
 
-const T_Hero = () => {
+const A_Hero = () => {
 
   const handleRegisterClick = () => {
     const contactSection = document.getElementById("contact");
@@ -41,4 +41,4 @@ const T_Hero = () => {
   );
 };
 
-export default T_Hero;
+export default A_Hero;

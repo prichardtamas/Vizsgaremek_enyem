@@ -57,29 +57,16 @@ function Navbar({ onLogin, onRegister }) {
                             </NavLink>
                         </li>
 
-                        {/* Kurzusok */}
-                        <li className="nav-item">
-                            <NavLink
-                                to="/courses"
-                                className={({ isActive }) =>
-                                    isActive ? "nav-link active" : "nav-link"
-                                }
-                                onClick={handleScrollToTop}
-                            >
-                                Kurzusok
-                            </NavLink>
-                        </li>
-
                         {/* Tanárok */}
                         <li className="nav-item">
                             <NavLink
-                                to="/teachers"
+                                to="/application"
                                 className={({ isActive }) =>
                                     isActive ? "nav-link active" : "nav-link"
                                 }
                                 onClick={handleScrollToTop}
                             >
-                                Tanárok
+                                Jelentkezés
                             </NavLink>
                         </li>
 

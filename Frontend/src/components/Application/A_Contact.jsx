@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const T_Contact = () => {
+const A_Contact = () => {
     const [formData, setFormData] = useState({
         teacher: '',
         studentName: '',
@@ -250,4 +250,4 @@ const T_Contact = () => {
     );
 };
 
-export default T_Contact;
+export default A_Contact;

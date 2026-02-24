@@ -31,7 +31,7 @@ const Events = () => {
 
     // Eseménykezelők
     const handleLoginClick = () => {
-        console.log("Login clicked");
+       navigate("/login");
     };
 
     const handleRegisterClick = () => {

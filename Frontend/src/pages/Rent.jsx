@@ -12,7 +12,7 @@ import Footer from "../components/Footer";
 const Rent = () => {
    const navigate = useNavigate();
   const handleLoginClick = () => {
-    console.log("Login clicked");
+    navigate("/login");
   };
 
   const handleRegisterClick = () => {

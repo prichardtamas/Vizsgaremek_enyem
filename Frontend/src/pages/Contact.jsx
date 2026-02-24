@@ -12,7 +12,7 @@ import Con_GYIK from "../components/Contact/Con_GYIK";
 const Contact = () => {
   const navigate = useNavigate();
   const handleLoginClick = () => {
-    alert("Bejelentkezési oldal hamarosan elérhető!");
+    navigate("/login");
   };
 
   const handleRegisterClick = () => {

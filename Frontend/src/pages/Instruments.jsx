@@ -16,7 +16,7 @@ const Instruments = () => {
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
-        console.log("Login clicked");
+        navigate("/login");
     };
 
     const handleRegisterClick = () => {

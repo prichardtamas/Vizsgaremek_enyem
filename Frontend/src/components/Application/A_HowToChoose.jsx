@@ -1,6 +1,6 @@
 import React from "react";
 
-const T_HowToChoose = () => {
+const A_HowToChoose = () => {
   return (
     <section className="how-to-choose py-5 bg-light">
       <div className="container">
@@ -71,4 +71,4 @@ const T_HowToChoose = () => {
   );
 };
 
-export default T_HowToChoose;
+export default A_HowToChoose;

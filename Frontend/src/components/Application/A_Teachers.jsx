@@ -142,7 +142,7 @@ const filterOptions = [
     { id: "flute", label: "Fuvola" }
 ];
 
-const Teachers = () => {
+const A_Teachers = () => {
   const [filter, setFilter] = useState("all");
 
   const handleFilterChange = (category) => {
@@ -274,4 +274,4 @@ const Teachers = () => {
   );
 };
 
-export default Teachers;
+export default A_Teachers;

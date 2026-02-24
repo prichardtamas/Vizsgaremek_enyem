@@ -12,7 +12,7 @@ function Home() {
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
-        alert("Még nem jó")
+        navigate("/login");
     };
 
     const handleRegisterClick = () => {
