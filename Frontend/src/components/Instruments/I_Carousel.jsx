@@ -1,6 +1,6 @@
 // InstrumentCarousel.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import CategoryCard from './CategoryCard';
+import CategoryCard from './I_CategoryCard';
 
 const InstrumentCarousel = ({ categories }) => {
     const [currentIndex, setCurrentIndex] = useState(0);

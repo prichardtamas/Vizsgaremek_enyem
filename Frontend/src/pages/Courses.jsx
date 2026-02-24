@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import { coursesData } from '../components/Courses/C_Data';
 import C_Search from '../components/Courses/C_Search';
 import C_Card from '../components/Courses/C_Card';
-import C_Modal from '../components/Courses/C_Model';
+import C_Model from '../components/Courses/C_Model';
 import C_NoResults from '../components/Courses/C_NoResults';
 import C_Message from '../components/Courses/C_Message';
 
