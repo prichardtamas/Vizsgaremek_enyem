@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const R_Form = () => {
+const R_Form = ({ selectedInstrument }) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
         // 1. lépés - Személyes adatok
@@ -23,6 +23,15 @@ const R_Form = () => {
         agreeTerms: false
     });
 
+    // Külön állapot a dátum mezőkhöz
+    const [birthYear, setBirthYear] = useState('');
+    const [birthMonth, setBirthMonth] = useState('');
+    const [birthDay, setBirthDay] = useState('');
+
+    const [startYear, setStartYear] = useState('');
+    const [startMonth, setStartMonth] = useState('');
+    const [startDay, setStartDay] = useState('');
+
     const instruments = [
         { value: 'fender_strat', label: 'Fender Stratocaster - 5.990 Ft/hó' },
         { value: 'yamaha_p125', label: 'Yamaha P-125 Digitális Zongora - 8.490 Ft/hó' },
@@ -41,6 +50,57 @@ const R_Form = () => {
         { value: 'kawai_piano', label: 'Kawai K-15 Akusztikus Zongora - 15.990 Ft/hó' }
     ];
 
+    // Segédfüggvény a hangszer név -> érték mappinghez
+    const getInstrumentValueByName = (instrumentName) => {
+        const mapping = {
+            'Fender Stratocaster': 'fender_strat',
+            'Yamaha P-125 Digitális Zongora': 'yamaha_p125',
+            'Pearl Export Dobfelszerelés': 'pearl_drums',
+            'Stentor Student II Hegedű': 'stentor_violin',
+            'Yamaha YAS-280 Alto Szaxofon': 'yamaha_sax',
+            'Marshall DSL40CR Gitár Erősítő': 'marshall_amp',
+            'Gibson Les Paul Standard': 'gibson_lespaul',
+            'Roland TD-17KVX Elektromos Dob': 'roland_drums',
+            'Korg Nautilus 61 Szintetizátor': 'korg_synth',
+            'Fender Jazz Bass': 'fender_jazz',
+            'Yamaha C40 Klasszikus Gitár': 'yamaha_c40',
+            'Selmer Paris Tenor Szaxofon': 'selmer_sax',
+            'Boss Katana 50 MkII Erősítő': 'boss_amp',
+            'Mapex Mars Akusztikus Dob': 'mapex_drums',
+            'Kawai K-15 Akusztikus Zongora': 'kawai_piano'
+        };
+        return mapping[instrumentName] || '';
+    };
+
+    // Születési dátum összeállítása
+    useEffect(() => {
+        if (birthYear && birthMonth && birthDay) {
+            const formattedDate = `${birthYear}-${birthMonth.padStart(2, '0')}-${birthDay.padStart(2, '0')}`;
+            setFormData(prev => ({ ...prev, rentalBirthDate: formattedDate }));
+        }
+    }, [birthYear, birthMonth, birthDay]);
+
+    // Kezdő dátum összeállítása
+    useEffect(() => {
+        if (startYear && startMonth && startDay) {
+            const formattedDate = `${startYear}-${startMonth.padStart(2, '0')}-${startDay.padStart(2, '0')}`;
+            setFormData(prev => ({ ...prev, startDate: formattedDate }));
+        }
+    }, [startYear, startMonth, startDay]);
+
+    // Ha van kiválasztott hangszer, beállítjuk a form értékét
+    useEffect(() => {
+        if (selectedInstrument && selectedInstrument.name) {
+            const instrumentValue = getInstrumentValueByName(selectedInstrument.name);
+            if (instrumentValue) {
+                setFormData(prev => ({
+                    ...prev,
+                    instrumentSelect: instrumentValue
+                }));
+            }
+        }
+    }, [selectedInstrument]);
+
     const rentalPeriods = [
         { value: '', label: 'Válassz időtartamot', disabled: true },
         { value: '1', label: '1 hónap' },
@@ -58,6 +118,12 @@ const R_Form = () => {
         { value: 'professional', label: 'Profi' }
     ];
 
+    // Évek listájának generálása
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
@@ -68,10 +134,14 @@ const R_Form = () => {
 
     const handleStepNavigation = (direction) => {
         if (direction === 'next') {
-            // Ellenőrzés az aktuális lépés alapján
             if (currentStep === 1) {
                 if (!formData.rentalFirstName || !formData.rentalLastName || !formData.rentalEmail ||
                     !formData.rentalPhone || !formData.rentalAddress || !formData.rentalBirthDate) {
+                    alert('Kérjük, töltsd ki az összes kötelező mezőt!');
+                    return;
+                }
+            } else if (currentStep === 2) {
+                if (!formData.instrumentSelect || !formData.rentalPeriod || !formData.startDate) {
                     alert('Kérjük, töltsd ki az összes kötelező mezőt!');
                     return;
                 }
@@ -90,13 +160,9 @@ const R_Form = () => {
             return;
         }
 
-        // Itt a form adatok küldése szerverre
         console.log('Form adatok:', formData);
-
-        // Sikeres küldés üzenet
         alert('Köszönjük kérelmedet! Hamarosan felvesszük veled a kapcsolatot a részletek egyeztetésére.');
 
-        // Form reset (opcionális)
         setFormData({
             rentalFirstName: '',
             rentalLastName: '',
@@ -112,14 +178,14 @@ const R_Form = () => {
             additionalNotes: '',
             agreeTerms: false
         });
+        setBirthYear('');
+        setBirthMonth('');
+        setBirthDay('');
+        setStartYear('');
+        setStartMonth('');
+        setStartDay('');
         setCurrentStep(1);
     };
-
-    // Dátum korlátozások
-    const today = new Date().toISOString().split('T')[0];
-    const maxDate = new Date();
-    maxDate.setFullYear(maxDate.getFullYear() - 16); // Minimum 16 éves
-    const maxBirthDate = maxDate.toISOString().split('T')[0];
 
     return (
         <section className="rental-form-section py-5" id="rental-form">
@@ -235,19 +301,48 @@ const R_Form = () => {
                                             />
                                         </div>
                                         <div className="col-md-6 mb-3">
-                                            <label htmlFor="rentalBirthDate" className="form-label">
-                                                Születési dátum *
-                                            </label>
-                                            <input
-                                                type="date"
-                                                className="form-control"
-                                                id="rentalBirthDate"
-                                                name="rentalBirthDate"
-                                                value={formData.rentalBirthDate}
-                                                onChange={handleInputChange}
-                                                required
-                                                max={maxBirthDate}
-                                            />
+                                            <label className="form-label">Születési dátum *</label>
+                                            <div className="row g-2">
+                                                <div className="col-4">
+                                                    <select
+                                                        className="form-select"
+                                                        value={birthYear}
+                                                        onChange={(e) => setBirthYear(e.target.value)}
+                                                        required
+                                                    >
+                                                        <option value="">Év</option>
+                                                        {years.map(year => (
+                                                            <option key={year} value={year}>{year}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="col-4">
+                                                    <select
+                                                        className="form-select"
+                                                        value={birthMonth}
+                                                        onChange={(e) => setBirthMonth(e.target.value)}
+                                                        required
+                                                    >
+                                                        <option value="">Hónap</option>
+                                                        {months.map(month => (
+                                                            <option key={month} value={month}>{month}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="col-4">
+                                                    <select
+                                                        className="form-select"
+                                                        value={birthDay}
+                                                        onChange={(e) => setBirthDay(e.target.value)}
+                                                        required
+                                                    >
+                                                        <option value="">Nap</option>
+                                                        {days.map(day => (
+                                                            <option key={day} value={day}>{day}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -313,19 +408,48 @@ const R_Form = () => {
                                             </select>
                                         </div>
                                         <div className="col-md-6 mb-3">
-                                            <label htmlFor="startDate" className="form-label">
-                                                Kezdő dátum *
-                                            </label>
-                                            <input
-                                                type="date"
-                                                className="form-control"
-                                                id="startDate"
-                                                name="startDate"
-                                                value={formData.startDate}
-                                                onChange={handleInputChange}
-                                                required
-                                                min={today}
-                                            />
+                                            <label className="form-label">Kezdő dátum *</label>
+                                            <div className="row g-2">
+                                                <div className="col-4">
+                                                    <select
+                                                        className="form-select"
+                                                        value={startYear}
+                                                        onChange={(e) => setStartYear(e.target.value)}
+                                                        required
+                                                    >
+                                                        <option value="">Év</option>
+                                                        {years.map(year => (
+                                                            <option key={year} value={year}>{year}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="col-4">
+                                                    <select
+                                                        className="form-select"
+                                                        value={startMonth}
+                                                        onChange={(e) => setStartMonth(e.target.value)}
+                                                        required
+                                                    >
+                                                        <option value="">Hónap</option>
+                                                        {months.map(month => (
+                                                            <option key={month} value={month}>{month}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="col-4">
+                                                    <select
+                                                        className="form-select"
+                                                        value={startDay}
+                                                        onChange={(e) => setStartDay(e.target.value)}
+                                                        required
+                                                    >
+                                                        <option value="">Nap</option>
+                                                        {days.map(day => (
+                                                            <option key={day} value={day}>{day}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 

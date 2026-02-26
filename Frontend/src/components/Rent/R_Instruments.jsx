@@ -8,8 +8,14 @@ import marshallErosito from '../../img/marshallErosito.jpg'
 import yamahaYas from '../../img/yamahaYas280.jpg'
 import yamahaP125 from '../../img/yamahaP125.jpg'
 import gibsonLee from '../../img/gibsonLee.jpg'
+import marsDob from '../../img/marsDob.jpg'
+import pearlDob from '../../img/pearlDob.jpg'
+import eDob from '../../img/eDob.jpg'
+import korg from '../../img/korg.jpg'
+import sszaxofon from '../../img/selmerSzaxofon.jpeg'
+import kawai from '../../img/kawai.jpg'
 
-const R_Instruments = () => {
+const R_Instruments = ({ onRentClick }) => {
   const [instruments, setInstruments] = useState([]);
   const [filteredInstruments, setFilteredInstruments] = useState([]);
   const [filters, setFilters] = useState({
@@ -50,7 +56,7 @@ const R_Instruments = () => {
       price: 12990,
       availability: "in-stock",
       description: "5 részes dobfelszerelés hardware-ekkel és cintányérokkal.",
-      image: "https://images.unsplash.com/photo-1519895609939-d2a6491c1196?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+      image: pearlDob,
       badge: "Akciós",
       minRental: "Min. 3 hónap"
     },
@@ -102,7 +108,7 @@ const R_Instruments = () => {
       price: 14990,
       availability: "in-stock",
       description: "Professzionális elektronikus dobfelszerelés, zajmentes gyakorláshoz.",
-      image: "https://images.unsplash.com/photo-1519895609939-d2a6491c1196?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: eDob,
       minRental: "Min. 3 hónap"
     },
     {
@@ -112,7 +118,7 @@ const R_Instruments = () => {
       price: 11990,
       availability: "in-stock",
       description: "61 billentyűs workstation szintetizátor, kreatív lehetőségek tárháza.",
-      image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: korg,
       minRental: "Min. 2 hónap"
     },
     {
@@ -143,7 +149,7 @@ const R_Instruments = () => {
       price: 12990,
       availability: "in-stock",
       description: "Professzionális tenor szaxofon, concert minőség.",
-      image: "https://images.unsplash.com/photo-1519735777090-ec97162dc5f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1415&q=80",
+      image: sszaxofon,
       badge: "Prémium",
       minRental: "Min. 3 hónap"
     },
@@ -164,7 +170,7 @@ const R_Instruments = () => {
       price: 8990,
       availability: "in-stock",
       description: "5 részes dobfelszerelés, teljes hardware készlettel.",
-      image: "https://images.unsplash.com/photo-1519895609939-d2a6491c1196?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: marsDob,
       minRental: "Min. 2 hónap"
     },
     {
@@ -174,7 +180,7 @@ const R_Instruments = () => {
       price: 15990,
       availability: "in-stock",
       description: "110 cm magas akusztikus zongora, kiváló hangminőséggel.",
-      image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
+      image: kawai,
       badge: "Prémium",
       minRental: "Min. 6 hónap"
     }
@@ -252,9 +258,25 @@ const R_Instruments = () => {
     });
   };
 
-  const handleRentClick = (instrumentName) => {
-    alert(`Kölcsönzés: ${instrumentName}`);
-    // Itt általában átirányítanánk a kölcsönzés oldalra vagy megnyitnánk egy modalt
+  const handleRentClick = (instrument) => {
+    // Meghívjuk a szülő komponensben definiált függvényt
+    if (onRentClick) {
+      onRentClick(instrument);
+    }
+    
+    // Görgetés a kölcsönzés űrlaphoz
+    const rentalFormElement = document.getElementById('rental-form');
+    if (rentalFormElement) {
+      rentalFormElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // Alternatív szelektorok, ha nem találja az ID-t
+      const formElement = document.querySelector('.rental-form-section, .form-container, [data-rental-form="true"]');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        console.warn('Nem található a kölcsönzési űrlap!');
+      }
+    }
   };
 
   const getCategoryName = (category) => {
@@ -426,7 +448,7 @@ const R_Instruments = () => {
                   </div>
                   <button 
                     className="btn btn-primary w-100 mt-3 rent-btn"
-                    onClick={() => handleRentClick(instrument.name)}
+                    onClick={() => handleRentClick(instrument)}
                   >
                     Kölcsönzés most
                   </button>

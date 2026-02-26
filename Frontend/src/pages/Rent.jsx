@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
@@ -11,36 +11,44 @@ import Footer from "../components/Footer";
 
 const Rent = () => {
    const navigate = useNavigate();
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
+   const [selectedInstrument, setSelectedInstrument] = useState(null);
 
-  const handleRegisterClick = () => {
-    navigate("/registration");
-  };
-  return (
-    <>
-      {/* Navigáció */}
-      <Navbar onLogin={handleLoginClick} onRegister={handleRegisterClick} />
+   const handleLoginClick = () => {
+      navigate("/login");
+   };
 
-      {/* Hero szakasz */}
-      <R_Hero />
+   const handleRegisterClick = () => {
+      navigate("/registration");
+   };
 
-      {/* Hogyan válassz tanárt szakasz */}
-      <R_Info />
+   const handleRentClick = (instrument) => {
+      setSelectedInstrument(instrument);
+   };
 
-      {/* Oktatók listája */}
-      <R_Instruments />
+   return (
+      <>
+         {/* Navigáció */}
+         <Navbar onLogin={handleLoginClick} onRegister={handleRegisterClick} />
 
-      {/* Kapcsolat űrlap */}
-      <R_Rent />
+         {/* Hero szakasz */}
+         <R_Hero />
 
-      <R_Form />
+         {/* Hogyan válassz tanárt szakasz */}
+         <R_Info />
 
-      {/* Footer */}
-      <Footer />
-    </>
-  );
+         {/* Hangszerek listája - most már kapja az onRentClick prop-ot */}
+         <R_Instruments onRentClick={handleRentClick} />
+
+         {/* Kapcsolat űrlap */}
+         <R_Rent />
+
+         {/* Kölcsönzési űrlap - most már kapja a selectedInstrument prop-ot */}
+         <R_Form selectedInstrument={selectedInstrument} />
+
+         {/* Footer */}
+         <Footer />
+      </>
+   );
 };
 
 export default Rent;
