@@ -4067,11 +4067,11 @@ textarea.form-control {
 .instrument-carousel .category-image {
     height: 200px;
     overflow: hidden;
-    background: linear-gradient(45deg, var(--accent-turquoise), var(--accent-turquoise-dark));
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 0;
 }
 
 .instrument-carousel .category-image img {
