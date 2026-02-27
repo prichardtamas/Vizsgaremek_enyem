@@ -1,15 +1,6 @@
-services:
-  frontend:
-    container_name: Zeneiskola
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    depends_on:
-      - api
-    ports:
-      - "8090:80"
-    restart: unless-stopped
+version: "3.8"
 
+services:
   db:
     image: mysql:8.0
     container_name: zeneiskola_db
@@ -17,56 +8,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
       MYSQL_DATABASE: zeneiskola_mysql
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 
-      TZ: Europe/Budapest
     ports:
       - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./db/init:/docker-entrypoint-initdb.d:ro
-    command: >
-      --character-set-server=utf8mb4
-      --collation-server=utf8mb4_hungarian_ci
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpw"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: Zeneiskola_phpmyadmin
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: "0"
-      UPLOAD_LIMIT: 64M
-      TZ: Europe/Budapest
-    ports:
-      - "8082:80"
-
-  api:
-    build:
-      context: ./backend/Zeneiskola
-      dockerfile: Dockerfile
-    container_name: zeneiskola_api
-    restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      ASPNETCORE_URLS: http://+:8080
-      ASPNETCORE_ENVIRONMENT: Development
-      TZ: Europe/Budapest
-      ConnectionStrings__Alap: "Server=localhost;Port=3306;Database=zeneiskola_mysql;User=root;Password=;TreatTinyAsBoolean=true;"
-    ports:
-      - "8080:8080"
 
 volumes:
   db_data:
-
