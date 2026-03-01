@@ -23,7 +23,7 @@ const E_Hero = ({ onContactClick }) => {
                     </div>
                     <div className="col-lg-6">
                         <div className="hero-image">
-                            <img src="/images/koncert.png" alt="Zenei esemény képe" className="img-fluid" />
+                            <img src="src/img/koncert.png" alt="Zenei esemény képe" className="img-fluid" />
                             <div className="floating-elements">
                                 <div className="music-note note-1"><i className="fas fa-calendar-alt"></i></div>
                                 <div className="music-note note-2"><i className="fas fa-microphone"></i></div>
