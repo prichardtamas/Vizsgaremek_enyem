@@ -4957,3 +4957,226 @@ textarea.form-control {
         font-size: 1rem;
     }
 }
+/* =============================================== */
+/* ADMIN OLDAL HERO - JAVÍTVA */
+/* =============================================== */
+
+.admin-hero {
+    background: linear-gradient(135deg, #1f2d4a 0%, #2A3B5C 100%);
+    padding: 60px 0 80px;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-hero::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(29, 211, 198, 0.15) 0%, rgba(255, 209, 102, 0.05) 70%, transparent 100%);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.admin-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 209, 102, 0.1) 0%, rgba(29, 211, 198, 0.03) 70%, transparent 100%);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.admin-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+    font-family: 'Raleway', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.admin-hero h1 span {
+    color: var(--accent-turquoise);
+    position: relative;
+    display: inline-block;
+}
+
+.admin-hero h1 span::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: rgba(29, 211, 198, 0.3);
+    border-radius: 4px;
+    z-index: -1;
+}
+
+.admin-hero p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 400;
+}
+
+/* Admin tábla stílusok */
+.dynamic-table-container {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(29, 211, 198, 0.1);
+}
+
+.dynamic-table-container h3 {
+    color: var(--dark-text);
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.dynamic-table-container .table {
+    margin-bottom: 0;
+}
+
+.dynamic-table-container .table thead th {
+    background-color: var(--secondary-light);
+    color: var(--dark-text);
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-turquoise);
+    padding: 1rem;
+}
+
+.dynamic-table-container .table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    color: var(--light-text);
+}
+
+.dynamic-table-container .table tbody tr:hover {
+    background-color: rgba(29, 211, 198, 0.05);
+}
+
+/* Gombok a táblában */
+.dynamic-table-container .btn-sm {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.dynamic-table-container .btn-sm i {
+    font-size: 0.9rem;
+}
+
+.dynamic-table-container .btn-outline-primary {
+    border-color: var(--accent-turquoise);
+    color: var(--accent-turquoise);
+}
+
+.dynamic-table-container .btn-outline-primary:hover {
+    background-color: var(--accent-turquoise);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(29, 211, 198, 0.3);
+}
+
+.dynamic-table-container .btn-outline-danger {
+    border-color: var(--error-red);
+    color: var(--error-red);
+}
+
+.dynamic-table-container .btn-outline-danger:hover {
+    background-color: var(--error-red);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+}
+
+.dynamic-table-container .btn-success {
+    background-color: var(--success-green);
+    border-color: var(--success-green);
+}
+
+.dynamic-table-container .btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Card az új rekord formhoz */
+.dynamic-table-container .card {
+    border: 2px solid var(--accent-turquoise);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.dynamic-table-container .card .form-label {
+    font-weight: 600;
+    color: var(--dark-text);
+    margin-bottom: 0.3rem;
+}
+
+.dynamic-table-container .card .form-control {
+    padding: 0.6rem 1rem;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+}
+
+.dynamic-table-container .card .form-control:focus {
+    border-color: var(--accent-turquoise);
+    box-shadow: 0 0 0 3px rgba(29, 211, 198, 0.15);
+}
+
+/* Lapozó */
+.dynamic-table-container .pagination-info {
+    color: var(--light-text);
+    font-weight: 500;
+}
+
+/* Reszponzív */
+@media (max-width: 768px) {
+    .admin-hero {
+        padding: 40px 0 60px;
+    }
+
+    .admin-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .admin-hero p {
+        font-size: 1.1rem;
+    }
+
+    .dynamic-table-container {
+        padding: 1rem;
+    }
+
+    .dynamic-table-container .table thead th,
+    .dynamic-table-container .table tbody td {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-hero h1 {
+        font-size: 2rem;
+    }
+}

@@ -17,7 +17,7 @@ const Admin = () => {
     <>
       <Navbar onLogin={handleLoginClick} onRegister={handleRegisterClick} />
 
-      <section className="page-hero" style={{ background: 'linear-gradient(135deg, #2A3B5C 0%, #1f2d4a 100%)' }}>
+      <section className="admin-hero" style={{ background: 'linear-gradient(135deg, #2A3B5C 0%, #1f2d4a 100%)' }}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-8 mx-auto">
