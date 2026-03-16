@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import * as adminApi from '../../services/adminApi';
+
+// Állítsd be a backended alap útvonalát ide:
+const API_BASE_URL = 'http://localhost:3000/api/admin/tablak';
 
 const DynamicTable = ({ tablaNeve }) => {
   const [adatok, setAdatok] = useState([]);
@@ -19,12 +21,17 @@ const DynamicTable = ({ tablaNeve }) => {
     }
   }, [tablaNeve, oldal]);
 
+  // 1. Adatok lekérése (adminController: getTableData alapján)
   const loadAdatok = async () => {
     setLoading(true);
     try {
-      const response = await adminApi.getTablaAdatok(tablaNeve, oldal);
-      setAdatok(response.adatok);
-      setOsszesen(response.osszesen);
+      const response = await fetch(`${API_BASE_URL}/${tablaNeve}/adatok?page=${oldal}&limit=50`);
+      if (!response.ok) throw new Error('Hiba az adatok betöltésekor');
+      
+      const data = await response.json();
+      // Az adminController 'data' és 'total' mezőket ad vissza
+      setAdatok(data.data);
+      setOsszesen(data.total);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -32,30 +39,52 @@ const DynamicTable = ({ tablaNeve }) => {
     }
   };
 
+  // 2. Szerkezet lekérése (adminController: getTableStructure alapján)
   const loadSzerkezet = async () => {
     try {
-      const data = await adminApi.getTablaSzerkezet(tablaNeve);
+      const response = await fetch(`${API_BASE_URL}/${tablaNeve}/szerkezet`);
+      if (!response.ok) throw new Error('Hiba a szerkezet betöltésekor');
+      
+      const data = await response.json();
       setSzerkezet(data);
     } catch (err) {
-      console.error('Hiba a szerkezet betöltésekor:', err);
+      console.error(err);
     }
   };
 
+  // 3. Új rekord (adminController: createRecord alapján)
   const handleUjRekord = async () => {
     try {
-      await adminApi.createRekord(tablaNeve, ujRekord);
+      const response = await fetch(`${API_BASE_URL}/${tablaNeve}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(ujRekord)
+      });
+      
+      if (!response.ok) throw new Error('Nem sikerült a mentés');
+      
       setUjRekord({});
       setMutatUjForm(false);
-      loadAdatok();
+      loadAdatok(); // Újratöltjük a táblát a mentés után
     } catch (err) {
       alert('Hiba: ' + err.message);
     }
   };
 
+  // 4. Módosítás (adminController: updateRecord alapján)
   const handleModositas = async (id) => {
     try {
-      const modositottAdat = adatok.find(a => a.id === id);
-      await adminApi.updateRekord(tablaNeve, id, modositottAdat);
+      const pkMezo = szerkezet.find(m => m.Key === 'PRI')?.Field || 'id';
+      const modositottAdat = adatok.find(a => a[pkMezo] === id);
+      
+      const response = await fetch(`${API_BASE_URL}/${tablaNeve}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(modositottAdat)
+      });
+
+      if (!response.ok) throw new Error('Nem sikerült a módosítás');
+      
       setSzerkesztettId(null);
       loadAdatok();
     } catch (err) {
@@ -63,10 +92,16 @@ const DynamicTable = ({ tablaNeve }) => {
     }
   };
 
+  // 5. Törlés (adminController: deleteRecord alapján)
   const handleTorles = async (id) => {
     if (window.confirm('Biztosan törölni szeretnéd ezt a rekordot?')) {
       try {
-        await adminApi.deleteRekord(tablaNeve, id);
+        const response = await fetch(`${API_BASE_URL}/${tablaNeve}/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) throw new Error('Nem sikerült a törlés');
+        
         loadAdatok();
       } catch (err) {
         alert('Hiba: ' + err.message);
@@ -76,10 +111,11 @@ const DynamicTable = ({ tablaNeve }) => {
 
   const formatErtek = (ertek, tipus) => {
     if (ertek === null || ertek === undefined) return '-';
-    if (tipus?.includes('date') && ertek) {
+    // MySQL típusok angolul érkeznek (Type)
+    if (tipus?.toLowerCase().includes('date') && ertek) {
       return new Date(ertek).toLocaleDateString('hu-HU');
     }
-    if (tipus === 'tinyint' && typeof ertek === 'boolean') {
+    if (tipus?.toLowerCase().includes('tinyint') && (typeof ertek === 'boolean' || ertek === 0 || ertek === 1)) {
       return ertek ? 'Igen' : 'Nem';
     }
     return String(ertek);
@@ -88,7 +124,8 @@ const DynamicTable = ({ tablaNeve }) => {
   if (loading) return <div className="text-center p-5">Betöltés...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
 
-  const pkMezo = szerkezet.find(m => m.kulcs === 'PRI')?.mezo || 'id';
+  // A MySQL DESCRIBE alapján a kulcs 'Key', az oszlop neve 'Field'
+  const pkMezo = szerkezet.find(m => m.Key === 'PRI')?.Field || 'id';
 
   return (
     <div className="dynamic-table-container">
@@ -106,17 +143,17 @@ const DynamicTable = ({ tablaNeve }) => {
             <h5 className="card-title">Új rekord</h5>
             <div className="row">
               {szerkezet
-                .filter(mezo => mezo.kulcs !== 'PRI')
+                .filter(mezo => mezo.Key !== 'PRI')
                 .map(mezo => (
-                  <div className="col-md-4 mb-3" key={mezo.mezo}>
-                    <label className="form-label">{mezo.mezo}</label>
+                  <div className="col-md-4 mb-3" key={mezo.Field}>
+                    <label className="form-label">{mezo.Field}</label>
                     <input
-                      type={mezo.tipus.includes('date') ? 'date' : 'text'}
+                      type={mezo.Type.includes('date') ? 'date' : 'text'}
                       className="form-control"
-                      value={ujRekord[mezo.mezo] || ''}
+                      value={ujRekord[mezo.Field] || ''}
                       onChange={(e) => setUjRekord({
                         ...ujRekord,
-                        [mezo.mezo]: e.target.value
+                        [mezo.Field]: e.target.value
                       })}
                     />
                   </div>
@@ -137,7 +174,7 @@ const DynamicTable = ({ tablaNeve }) => {
           <thead className="table-light">
             <tr>
               {szerkezet.map(mezo => (
-                <th key={mezo.mezo}>{mezo.mezo}</th>
+                <th key={mezo.Field}>{mezo.Field}</th>
               ))}
               <th>Műveletek</th>
             </tr>
@@ -146,21 +183,21 @@ const DynamicTable = ({ tablaNeve }) => {
             {adatok.map(record => (
               <tr key={record[pkMezo]}>
                 {szerkezet.map(mezo => (
-                  <td key={mezo.mezo}>
+                  <td key={mezo.Field}>
                     {szerkesztettId === record[pkMezo] ? (
                       <input
-                        type={mezo.tipus.includes('date') ? 'date' : 'text'}
+                        type={mezo.Type.includes('date') ? 'date' : 'text'}
                         className="form-control form-control-sm"
-                        value={record[mezo.mezo] || ''}
+                        value={record[mezo.Field] || ''}
                         onChange={(e) => {
                           const newAdatok = [...adatok];
                           const idx = newAdatok.findIndex(r => r[pkMezo] === record[pkMezo]);
-                          newAdatok[idx][mezo.mezo] = e.target.value;
+                          newAdatok[idx][mezo.Field] = e.target.value;
                           setAdatok(newAdatok);
                         }}
                       />
                     ) : (
-                      formatErtek(record[mezo.mezo], mezo.tipus)
+                      formatErtek(record[mezo.Field], mezo.Type)
                     )}
                   </td>
                 ))}
@@ -171,13 +208,13 @@ const DynamicTable = ({ tablaNeve }) => {
                         className="btn btn-sm btn-success me-2"
                         onClick={() => handleModositas(record[pkMezo])}
                       >
-                        <i className="fas fa-save"></i>
+                        <i className="fas fa-save"></i> Mentés
                       </button>
                       <button 
                         className="btn btn-sm btn-secondary"
                         onClick={() => setSzerkesztettId(null)}
                       >
-                        <i className="fas fa-times"></i>
+                        <i className="fas fa-times"></i> Mégse
                       </button>
                     </>
                   ) : (
@@ -211,7 +248,7 @@ const DynamicTable = ({ tablaNeve }) => {
         >
           Előző
         </button>
-        <span className="mx-3">{oldal} / {Math.ceil(osszesen / 50)}</span>
+        <span className="mx-3">{oldal} / {Math.ceil(osszesen / 50) || 1}</span>
         <button 
           className="btn btn-outline-primary ms-2"
           onClick={() => setOldal(o => o+1)}

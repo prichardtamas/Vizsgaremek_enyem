@@ -3,62 +3,62 @@ version: "3.9"
 services:
   mysql:
     image: mysql:8.0
-    container_name: zeneiskola_db
+    container_name: zeneiskola_db # Igen, ez az adatbázisod konténerének a neve
     command: 
-      - "--default-authentication-plugin=mysql_native_password"
-      - "--character-set-server=utf8mb4"
-      - "--collation-server=utf8mb4_hungarian_ci"
+      - "--default-authentication-plugin=mysql_native_password" # ÚJ: Hozzáadva a kötőjel (-) a listához
+      - "--character-set-server=utf8mb4"                        # ÚJ: Hozzáadva a kötőjel (-)
+      - "--collation-server=utf8mb4_hungarian_ci"               # ÚJ: Hozzáadva a kötőjel (-)
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
       MYSQL_DATABASE: zeneiskola_mysql
     ports:
-      - "3307:3306"           # Host:Container - 3307-en éred el lokálisan
+      - "3307:3306" # ÚJ: Hozzáadva a kötőjel (-)
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+      - mysql_data:/var/lib/mysql                               # ÚJ: Hozzáadva a kötőjel (-)
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql # ÚJ: Hozzáadva a kötőjel (-)
     networks:
-      - zeneiskola_network
+      - zeneiskola_network # ÚJ: Hozzáadva a kötőjel (-)
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 10s
       retries: 5
 
-  backend:
-    build: ./backend
+  backend: # ÚJ: A teljes backend blokk kijjebb lett húzva balra, pontosan egy vonalba a 'mysql:'-lel
+    build: ./Backend
     container_name: backend_api
     ports:
-      - "3000:3000"
+      - "3001:3000" # ÚJ: Hozzáadva a kötőjel (-)
     environment:
       DB_HOST: mysql
       DB_USER: root
       DB_PASSWORD: rootpw
       DB_NAME: zeneiskola_mysql
-      DB_PORT: 3306
+      DB_PORT: 3307
       PORT: 3000
     depends_on:
       mysql:
         condition: service_healthy
     networks:
-      - zeneiskola_network
+      - zeneiskola_network # ÚJ: Hozzáadva a kötőjel (-)
     volumes:
-      - ./backend:/usr/src/app      # Hot-reload fejlesztéshez
-      - /usr/src/app/node_modules    # Node_modules védelem
+      - ./Backend:/usr/src/app      # ÚJ: Hozzáadva a kötőjel (-)
+      - /usr/src/app/node_modules   # ÚJ: Hozzáadva a kötőjel (-)
     restart: unless-stopped
 
-  phpmyadmin:
+  phpmyadmin: # ÚJ: A teljes phpmyadmin blokk is kijjebb lett húzva, egy vonalba a többivel
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
     depends_on:
-      - mysql
+      - mysql # ÚJ: Hozzáadva a kötőjel (-) és feljebb húzva egy sorba
     ports:
-      - "8081:80"
+      - "8081:80" # ÚJ: Hozzáadva a kötőjel (-)
     environment:
       PMA_HOST: mysql
       PMA_USER: root
       PMA_PASSWORD: rootpw
       UPLOAD_LIMIT: 64M
     networks:
-      - zeneiskola_network
+      - zeneiskola_network # ÚJ: Hozzáadva a kötőjel (-)
 
 networks:
   zeneiskola_network:

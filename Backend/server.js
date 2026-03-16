@@ -1,5 +1,5 @@
-const app = require('./src/app'); // Behúzzuk a teljesen felkészített appot
 require("dotenv").config();      // Beolvassuk a környezeti változókat (.env)
+const app = require('./src/app'); // Behúzzuk a teljesen felkészített appot
 
 // Megadjuk a portot
 const PORT = process.env.PORT || 3000;
