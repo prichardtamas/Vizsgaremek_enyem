@@ -1,38 +1,68 @@
 const { spawn, execSync } = require('child_process');
+const path = require('path');
 
-console.log('\x1b[33m%s\x1b[0m', '⏳ A MOZI rendszer indítása folyamatban... (Kérlek várj pár másodpercet)');
+console.log('\n--- 🚀 VIZSGAREMEK RENDSZER INDÍTÁSA ---');
 
-// 1. Docker indítása a háttérben (hogy ne szemetelje tele a képernyőt)
-const docker = spawn('docker', ['compose', 'up', '-d', '--build'], { stdio: 'inherit', shell: true });
-
-docker.on('close', (code) => {
-    if (code === 0) {
-        // Ha sikeresen elindult, letöröljük a képernyőt és kiírjuk a linkeket
-        console.clear();
-        console.log('\x1b[32m%s\x1b[0m', '✅ A RENDSZER SIKERESEN ELINDULT!');
-        console.log('--------------------------------------------------');
-        console.log('🌍 \x1b[36mWEBOLDAL (Kattints ide):\x1b[0m   http://localhost:8090');
-        console.log('🗄️  \x1b[36mADATBÁZIS (PhpMyAdmin):\x1b[0m    http://localhost:8082');
-        console.log('⚙️  \x1b[36mBACKEND API:\x1b[0m               http://localhost:5000');
-        console.log('--------------------------------------------------');
-        console.log('\x1b[33m%s\x1b[0m', '🛑 LEÁLLÍTÁSHOZ NYOMJ: CTRL + C');
-
-        // Folyamatosan figyeljük, hogy ne lépjen ki a script
-        setInterval(() => {}, 1000);
-    } else {
-        console.error('Hiba történt az indításkor!');
+/**
+ * Segédfüggvény a Docker parancsokhoz (szinkron futtatás)
+ */
+function runDocker(command) {
+    try {
+        console.log(`\n🐳 Docker: ${command === 'up -d' ? 'Indítás...' : 'Leállítás...'}`);
+        execSync(`docker-compose ${command}`, { stdio: 'inherit' });
+    } catch (error) {
+        console.error(`❌ Hiba a Docker művelet során (${command}):`, error.message);
     }
+}
+
+// 1. Docker konténerek elindítása (Adatbázis, PHP, stb.)
+runDocker('up -d');
+
+// 2. npm folyamatok konfigurációja
+const processes = [
+    { name: 'BACKEND', cwd: path.join(__dirname, 'Backend') },
+    { name: 'FRONTEND', cwd: path.join(__dirname, 'Frontend') }
+];
+
+const runningProcesses = [];
+
+// 3. Backend és Frontend indítása párhuzamosan
+processes.forEach(p => {
+    console.log(`📦 ${p.name} indítása a ${p.cwd} mappából...`);
+    const proc = spawn('npm', ['run', 'dev'], { 
+        cwd: p.cwd, 
+        shell: true, 
+        stdio: 'inherit' 
+    });
+
+    runningProcesses.push(proc);
 });
 
-// 2. Ha megnyomod a CTRL + C-t, akkor leállítjuk a Dockert is
-process.on('SIGINT', () => {
-    console.log('\n\x1b[31m%s\x1b[0m', '🛑 Leállítás folyamatban... (A konténerek leállnak)');
-    try {
-        execSync('docker compose down');
-        console.log('✅ Minden leállt. Viszlát!');
-        process.exit();
-    } catch (e) {
-        console.log('Hiba a leállításkor, de a program kilép.');
-        process.exit();
-    }
+console.log('\n✅ Minden folyamat elindult! Leállításhoz nyomj CTRL+C-t.\n');
+
+/**
+ * TAKARÍTÁS FUNKCIÓ
+ * Ez fut le, ha bezárod a programot.
+ */
+function cleanup() {
+    console.log('\n\n--- 🛑 LEÁLLÍTÁS FOLYAMATBAN... ---');
+
+    // Docker leállítása és konténerek eltávolítása
+    runDocker('down');
+
+    console.log('👋 Minden leállt. Szép munkát!\n');
+    
+    // Kényszerített kilépés, hogy ne maradjon lógó folyamat
+    process.exit(0);
+}
+
+// Figyeljük a CTRL+C jelet (SIGINT)
+process.on('SIGINT', cleanup);
+
+// Figyeljük a terminál bezárását (SIGTERM)
+process.on('SIGTERM', cleanup);
+
+// Windows specifikus: kezeli, ha a folyamat váratlanul megszakad
+process.on('exit', () => {
+    // Itt már csak szinkron kód futhatna, a fő takarítást a cleanup végzi
 });
